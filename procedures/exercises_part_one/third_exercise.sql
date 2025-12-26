@@ -6,8 +6,10 @@ DELIMITER $$
 
         SELECT numberOne + numberTwo AS result;
 
-    END
+    END $$
 
-DELIMITER $$
+DELIMITER ;
 
 call custom_sum(169,259);
+
+drop procedure custom_sum;

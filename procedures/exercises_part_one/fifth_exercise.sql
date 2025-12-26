@@ -13,9 +13,10 @@ DELIMITER $$
         END IF;
 
         SELECT response;
-    END
 
-DELIMITER $$
+    END $$
+
+DELIMITER ;
 
 call define_age(20);
 

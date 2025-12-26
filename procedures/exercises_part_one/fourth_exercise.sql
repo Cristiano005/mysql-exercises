@@ -5,12 +5,12 @@ DELIMITER $$
     BEGIN
 
         DECLARE result DECIMAL(10,2);
-        SET @result = value - (value * 0.10);
-        SELECT @result AS result;
+        SET result = value - (value * 0.10);
+        SELECT result AS result;
 
-    END
+    END $$
 
-DELIMITER $$
+DELIMITER ;
 
 call discount(650);
 

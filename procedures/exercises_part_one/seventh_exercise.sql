@@ -6,7 +6,7 @@ DELIMITER $$
 
         DECLARE increment INT DEFAULT 1;
 
-        WHILE increment < number DO
+        WHILE increment <= number DO
 
             SELECT increment;
 
@@ -14,10 +14,10 @@ DELIMITER $$
 
         END WHILE;
      
-    END
+    END $$
 
-DELIMITER $$
+DELIMITER ;
 
 call count_to(5);
 
--- drop procedure count_to
+drop procedure count_to

@@ -6,8 +6,10 @@ DELIMITER $$
 
         SELECT "Hello, MySQL Procedures!" AS greeting;
 
-    END
+    END $$
 
-DELIMITER $$
+DELIMITER ;
+
+-- drop procedure sp_hello;
 
 call sp_hello;

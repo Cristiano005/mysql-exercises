@@ -16,9 +16,9 @@ DELIMITER $$
 
         SELECT total;
 
-    END
+    END $$
 
-DELIMITER $$
+DELIMITER ;
 
 call sum_to(5);
 

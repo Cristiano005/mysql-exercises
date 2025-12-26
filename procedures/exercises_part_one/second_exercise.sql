@@ -4,9 +4,11 @@ DELIMITER $$
 
     BEGIN
         SELECT CONCAT_WS(" ", "Welcome,", name) AS custom_message;
-    END
+    END $$
     
-DELIMITER $$
+DELIMITER ;
+
+select * from products ;
 
 call custom_greeting("Cristiano");
 

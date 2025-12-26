@@ -2,7 +2,7 @@ CREATE TABLE products (
     id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(100) NOT NULL,
     stock INT NOT NULL DEFAULT 0
-) ENGINE=InnoDB; 
+) ENGINE = InnoDB;
 
 -- INSERT INTO products (name, stock) VALUES ("Go Pro", 443)
 
@@ -12,7 +12,7 @@ select * from products
 
 DELIMITER $$
 
-    CREATE PROCEDURE low_stock(IN productId int unsigned, IN quantity int unsigned) 
+CREATE PROCEDURE low_stock(IN productId int unsigned, IN quantity int unsigned) 
 
     BEGIN
 
@@ -27,6 +27,12 @@ DELIMITER $$
 
             SET quantityStock = quantityStock - quantity;
 
+            IF quantityStock < quantity THEN
+                ROLLBACK;
+                SELECT 'Insufficient stock' AS result;
+                LEAVE proc;
+            END IF;
+
             UPDATE products SET stock = quantityStock WHERE id = productId;
 
         IF erro_sql = FALSE THEN
@@ -37,12 +43,12 @@ DELIMITER $$
             SELECT 'Transaction Error' AS result;
         END IF;
 
-    END
+    END $$
 
-DELIMITER $$
+DELIMITER ;
 
 -- SHOW TABLE STATUS WHERE Name = 'products';
 
 drop procedure low_stock
 
-call low_stock(1, 10);
+call low_stock (1, 10);

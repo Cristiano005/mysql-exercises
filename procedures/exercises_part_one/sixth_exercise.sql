@@ -17,9 +17,10 @@ DELIMITER $$
         END CASE;
 
         SELECT response;
-    END
 
-DELIMITER $$
+    END $$
+
+DELIMITER ;
 
 call define_grade(7);
 

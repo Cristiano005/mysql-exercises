@@ -4,9 +4,9 @@ DELIMITER $$
 
     BEGIN
         SET tax = value * 0.15;
-    END
+    END $$
 
-DELIMITER $$
+DELIMITER ;
 
 call calculate_tax(1500, @tax)
 
