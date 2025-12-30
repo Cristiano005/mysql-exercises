@@ -1,0 +1,109 @@
+🟢 1. Transferência bancária simples
+
+Contexto: sistema bancário.
+
+Crie uma procedure sp_transferir_saldo que:
+
+Recebe conta_origem, conta_destino, valor
+
+Usa TRANSACTION
+
+Debita da conta origem
+
+Credita na conta destino
+
+Se a conta origem não tiver saldo suficiente → ROLLBACK
+
+Se tudo der certo → COMMIT
+
+📌 Tabelas:
+
+contas(id, saldo)
+
+🟢 2. Cadastro de pedido + itens
+
+Contexto: e-commerce.
+
+Crie uma procedure sp_criar_pedido que:
+
+Insere um pedido na tabela pedidos
+
+Insere vários itens em pedido_itens
+
+Usa TRANSACTION
+
+Se qualquer insert falhar → rollback total
+
+📌 Tabelas:
+
+pedidos(id, cliente_id, total)
+pedido_itens(id, pedido_id, produto_id, quantidade)
+
+🟡 4. Cancelamento de pedido
+
+Contexto: sistema de pedidos.
+
+Procedure sp_cancelar_pedido:
+
+Marca pedido como cancelado
+
+Devolve itens ao estoque
+
+Usa TRANSACTION
+
+Se qualquer passo falhar → rollback
+
+📌 Conceito importante: consistência de dados
+
+🟡 5. Agendamento com verificação de conflito
+
+Contexto: sistema de agendamentos.
+
+Procedure sp_criar_agendamento:
+
+Recebe data, hora, profissional_id
+
+Verifica se já existe agendamento naquele horário
+
+Se existir → não insere
+
+Se não existir → insere
+
+Usa transaction
+
+📌 Tabela:
+
+agendamentos(id, profissional_id, data, hora, status)
+
+🟡 7. Ajuste em massa com segurança
+
+Contexto: aumento salarial.
+
+Procedure sp_reajuste_salarial:
+
+Aumenta salário de funcionários de um setor
+
+Registra o reajuste numa tabela de log
+
+Se algum update falhar → rollback
+
+📌 Tabelas:
+
+funcionarios(id, setor_id, salario)
+log_reajustes(id, funcionario_id, valor_antigo, valor_novo)
+
+🔵 8. Exclusão segura (soft delete)
+
+Contexto: sistema corporativo.
+
+Procedure sp_excluir_cliente:
+
+Marca cliente como inativo
+
+Cancela pedidos pendentes
+
+Usa transaction
+
+Nada deve ficar “meio apagado”
+
+📌 Conceito real de soft delete + atomicidade
