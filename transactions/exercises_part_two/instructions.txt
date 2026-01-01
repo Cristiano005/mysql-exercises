@@ -1,0 +1,1 @@
+Apenas um exercicio ficticio de parque de diversões para treinar SAVEPOINT em Transactions com MySQL.
