@@ -15,6 +15,9 @@ DELIMITER $$
 
         START TRANSACTION;
 
+            -- Trava pedido enquanto a transação realiza sua operação.
+            SELECT id FROM orders WHERE id = orderId FOR UPDATE; 
+
             SELECT EXISTS (SELECT 1 FROM orders WHERE id = orderId AND status = "PENDING") INTO orderFound;
 
             IF orderFound = 1 THEN
