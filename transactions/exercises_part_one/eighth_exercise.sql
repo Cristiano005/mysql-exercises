@@ -13,16 +13,15 @@ DELIMITER $$
 
         START TRANSACTION;
 
-            IF (SELECT 1 FROM customers WHERE id = customerId) = 1 THEN
+            IF EXISTS (SELECT 1 FROM customers WHERE id = customerId AND deleted_at IS NULL FOR UPDATE) THEN
 
-                UPDATE customers SET deleted_at = now() WHERE id = 4;
-
+                UPDATE customers SET deleted_at = now() WHERE id = customerId;
                 UPDATE orders SET status = "CANCELLED" WHERE customer_id = customerId AND status = "PENDING";
 
                 COMMIT;
 
             ELSE
-                SIGNAL SQLSTATE "45000" SET MESSAGE_TEXT = "Customer doesn't exist!";
+                SIGNAL SQLSTATE "45000" SET MESSAGE_TEXT = "Customer doesn't allowed!";
             END IF;
         
 
@@ -32,7 +31,7 @@ DELIMITER ;
 
 drop procedure delete_customer;
 
-call delete_customer(4);
+call delete_customer(1);
 
 SELECT * FROM customers;
 

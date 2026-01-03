@@ -19,27 +19,14 @@ DELIMITER $$
 
     BEGIN 
 
-        DECLARE scheduleFound INT UNSIGNED DEFAULT 0;
-
         DECLARE EXIT HANDLER FOR SQLEXCEPTION BEGIN
             ROLLBACK;
             RESIGNAL;
         END;
 
         START TRANSACTION;
-
-            SELECT EXISTS (SELECT 1 FROM appointments WHERE date = p_date AND time = p_time) INTO scheduleFound;
-
-            IF scheduleFound = 0 THEN 
-
-                INSERT INTO appointments (professional_id, date, time, status) VALUES (professionalId, p_date, p_time, "pending");
-
-                COMMIT;
-
-            ELSE
-                SIGNAL SQLSTATE "45000" SET MESSAGE_TEXT = "Schedule already exists!";
-            END IF;
-
+            INSERT INTO appointments (professional_id, date, time, status) VALUES (professionalId, p_date, p_time, "pending");
+        COMMIT;
     END $$
 
 DELIMITER ;
@@ -48,6 +35,8 @@ select * from appointments;
 
 drop procedure create_schedule;
 
-call create_schedule(1, "2025-12-31", "09:00:00");
+call create_schedule(2, "2025-12-31", "09:00:00");
+
+ALTER TABLE appointments ADD UNIQUE INDEX idx_unique_schedule (professional_id, date, time);
 
 --- Agebndamento tá sendo erncontrado, tá errado isso, deposi vejo!
