@@ -1,0 +1,1 @@
+SELECT sum(stock) FROM products

@@ -1,0 +1,1 @@
+SELECT sum(total_amount) FROM orders GROUP BY customer_id ORDER BY total_amount DESC LIMIT 3

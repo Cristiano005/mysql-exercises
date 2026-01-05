@@ -1,0 +1,1 @@
+ SELECT rowid, strftime('%d/%m/%Y', order_date) FROM orders WHERE strftime('%m-%Y', order_date) > '06-2024'

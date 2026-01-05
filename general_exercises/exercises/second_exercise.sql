@@ -1,0 +1,1 @@
+SELECT name, email FROM customers WHERE city = 'São Paulo'

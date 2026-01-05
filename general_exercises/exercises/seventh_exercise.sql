@@ -1,0 +1,1 @@
+SELECT product_name, MAX(price) FROM products
