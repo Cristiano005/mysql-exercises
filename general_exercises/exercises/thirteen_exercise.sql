@@ -1,4 +1,6 @@
-SELECT categories.category_name, ROUND(SUM(order_items.quantity * order_items.unit_price), 2)  AS totalByCategory from order_items 
-	INNER JOIN products ON products.rowid = order_items.product_id 
-    INNER JOIN categories ON categories.rowid = products.category_id
- GROUP BY products.category_id
+SELECT category.category_name, 
+    ROUND(SUM(item.quantity * item.unit_price), 2) AS totalByCategory 
+FROM order_items item
+	INNER JOIN products product ON product.product_id = item.product_id 
+    INNER JOIN categories category ON category.category_id = product.category_id
+GROUP BY product.category_id

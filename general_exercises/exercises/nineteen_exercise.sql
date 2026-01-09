@@ -1,11 +1,11 @@
 SELECT 
 	id,
-    month,
+    only_month,
 	MAX(total_amount_by_month)
 FROM (
   SELECT  
-  	  rowid AS id,
-  	  strftime('%m', order_date) as month,
+  	  order_id AS id,
+  	  strftime('%m', order_date) AS only_month,
       SUM(total_amount) AS total_amount_by_month
   FROM 
      orders 

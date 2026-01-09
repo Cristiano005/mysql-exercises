@@ -1,5 +1,11 @@
-SELECT * FROM products WHERE NOT EXISTS (SELECT 1 FROM order_items WHERE product_id = products.rowid)
+SELECT product.product_id, product.product_name 
+    FROM products product
+        WHERE NOT EXISTS 
+            (SELECT 1 FROM order_items item
+                WHERE item.product_id = product.product_id)
 
 -- OR
 
-SELECT * FROM products WHERE rowid NOT IN (SELECT order_items.product_id FROM order_items)
+SELECT * FROM products product
+    WHERE product.product_id NOT IN 
+        (SELECT item.product_id FROM order_items item)

@@ -1,1 +1,1 @@
-SELECT sum(stock) FROM products
+SELECT sum(stock) AS total_stock FROM products
